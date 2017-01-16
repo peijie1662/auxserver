@@ -1,0 +1,56 @@
+[
+  {
+    "fileName": "{DB4B9270-92C1-492C-82E6-E9DFF38E38E8}",
+    "srcName": "陆明耀  ",
+    "srcMac": "NB53",
+    "targetName": "虞国海  ",
+    "targetMac": "NB54",
+    "crtTime": "2016-12-28 08:34:54",
+    "received": "N"
+  },
+  {
+    "fileName": "{E8A8E717-8243-4B2C-B8FF-54976B363A23}",
+    "srcName": "陆明耀  ",
+    "srcMac": "NB53",
+    "targetName": "贺海根  ",
+    "targetMac": "NB51",
+    "crtTime": "2016-12-28 08:53:32",
+    "received": "Y"
+  },
+  {
+    "fileName": "{958A3220-CF4A-48A9-9E7A-684CF926BE75}",
+    "srcName": "陆明耀  ",
+    "srcMac": "NB53",
+    "targetName": "贺海根  ",
+    "targetMac": "NB51",
+    "crtTime": "2016-12-28 08:53:41",
+    "received": "Y"
+  },
+  {
+    "fileName": "{B8F43D75-62BC-46F6-9E70-998361B058B4}",
+    "srcName": "陆明耀  ",
+    "srcMac": "NB53",
+    "targetName": "贺海根  ",
+    "targetMac": "NB51",
+    "crtTime": "2016-12-28 08:54:13",
+    "received": "Y"
+  },
+  {
+    "fileName": "{D5055745-46FA-4044-93B4-A5C0567A00C2}",
+    "srcName": "贺海根  ",
+    "srcMac": "NB51",
+    "targetName": "陆明耀  ",
+    "targetMac": "NB53",
+    "crtTime": "2016-12-28 08:55:47",
+    "received": "Y"
+  },
+  {
+    "fileName": "{8E325E43-7DA2-47C1-8C70-47BEC289BF70}",
+    "srcName": "陆明耀  ",
+    "srcMac": "NB53",
+    "targetName": "贺海根  ",
+    "targetMac": "NB51",
+    "crtTime": "2016-12-28 08:56:02",
+    "received": "Y"
+  }
+]
