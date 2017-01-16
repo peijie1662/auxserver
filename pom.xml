@@ -13,7 +13,6 @@
 		<slf4j.version>1.7.2</slf4j.version>
 		<logback.version>1.0.9</logback.version>
 	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -27,7 +26,7 @@
 			<artifactId>thymeleaf-spring4</artifactId>
 			<version>2.1.2.RELEASE</version>
 		</dependency>
-		<!--spring mvc -->
+		<!-- spring mvc -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
@@ -103,14 +102,13 @@
 			<version>${logback.version}</version>
 		</dependency>
 		<!-- arm转换 -->
-		<!--  dependency>
+		<dependency>
 			<groupId>it.sauronsoftware</groupId>
 			<artifactId>convert</artifactId>
 			<version>1.0.2</version>
-		</dependency>-->
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>auxserver</finalName>
 	</build>
-
 </project>
