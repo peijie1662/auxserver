@@ -455,15 +455,18 @@ desired effect
 			timeEd = timeEd.substr(0, 2) + timeEd.substr(3, 2) + '59';
 			i = 1;
 			$.ajax({
-				type : "POST",
+				type : "post",
 				url : "/auxserver/voice/begin/" + dateStart + timeBg + "/end/"
 						+ dateEnd + timeEd,
+               // url : "response.json",
 				jsonp : "jsoncallback",
 				//contentType: "application/json;charset=gb2312",
 				dataType : 'json',
 				success : function(json) {
 					//$("#tbVoice").empty();
+                    tb.rows().remove();
 					$.each(json, function(n, value) {
+
 						tb.row.add([ i, 
 								value.srcName, 
 								value.srcMac,	
