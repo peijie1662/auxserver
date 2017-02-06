@@ -20,13 +20,15 @@ public class MappingUtil {
 		for (Field field : fields) {
 			String fieldName = field.getName().toUpperCase();
 			Object fieldValue = map.get(fieldName);
-			if (fieldName.endsWith("TIME") || fieldName.endsWith("DATE")){
+			if (fieldName.endsWith("TIME") || fieldName.endsWith("DATE")) {
 				fieldValue = df.format(fieldValue);
 			}
 			for (Method method : methods) {
 				if (method.getName().toUpperCase().equals("SET" + fieldName)) {
 					try {
-						method.invoke(t, fieldValue);
+						if (fieldValue != null) {
+							method.invoke(t, fieldValue.toString().trim());
+						}
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
