@@ -416,7 +416,11 @@ desired effect
                 }
              }});
 		});
-		function playVoice(comp, file) {
+		function playVoice(comp, file,seq) {
+		    file = '/auxserver/mp3/' + file + '01.mp3';
+		    for (var i = 2 ; i<=seq;i++){
+		        file = '|' + '/auxserver/mp3/' + file + p(i) + '.mp3'
+			}
 			if (dewp != null) {
 				$(comp).addClass('sr-only');
 				$(comp).next().removeClass('sr-only');
@@ -454,7 +458,7 @@ desired effect
 				type : "post",
 				url : "/auxserver/voice/begin/" + dateStart + timeBg + "/end/"
 						+ dateEnd + timeEd,
-               // url : "response.json",
+                //url : "/auxserver/html/response.json",
 				jsonp : "jsoncallback",
 				//contentType: "application/json;charset=gb2312",
 				dataType : 'json',
@@ -471,7 +475,7 @@ desired effect
 								value.crtTime, 
 								value.received,
 								'<button type=\"button\" class=\"btn btn-block btn-success btn-xs\" style=\"margin-top: 5px;\" '
-                            + 'onclick=\"playVoice(this,\'/auxserver/mp3/' + value.fileName + '.mp3\');\"> <i class=\"fa fa-play\"> 播放</i></button> '
+                            + 'onclick=\"playVoice(this,\''+value.fileName+'\',\'' + value.fileSeq + '\');\"> <i class=\"fa fa-play\"> 播放</i></button> '
                             + '<button type=\"button\" class=\"btn btn-block btn-success btn-xs sr-only\" onclick=\"StopVoice(this);\">'
                             + '<i class=\"fa fa-stop\"> 停止</i></button> ' 
                             ]).draw(
