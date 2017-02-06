@@ -2,16 +2,16 @@ package pj.com.cn.web.model;
 
 import Utils.ConvertUtils;
 
-
-
-
-
-
 public class Voice {
 	/**
 	 * 语音文件
 	 */
 	private String fileName;
+	
+	/**
+	 * 语音文件顺序号
+	 */
+	private String fileSeq;
 	
 	/**
 	 * 发起人
@@ -100,6 +100,14 @@ public class Voice {
 
 	public void setCrtTime(String crtTime) {
 		this.crtTime = crtTime;
+	}
+
+	public String getFileSeq() {
+		return fileSeq;
+	}
+
+	public void setFileSeq(String fileSeq) {
+		this.fileSeq = fileSeq;
 	}
 	
 }
