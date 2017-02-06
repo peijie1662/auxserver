@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>AdminLTE 2 | Starter</title>
+<title>4G语音传输查询</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
@@ -110,25 +110,15 @@ desired effect
 
 				<!-- Sidebar Menu -->
 				<ul class="sidebar-menu">
-					<li class="header">HEADER</li>
+					<li class="header">查询</li>
 					<!-- Optionally, you can add icons to the links -->
-					<li class="active"><a href="#"><i class="fa fa-link"></i>
-							<span>Link</span>
+					<li class="active"><a href="/auxserver/html/devicestatus.html"><i class="fa fa-link"></i>
+							<span>4G设备状态查看</span>
 					</a>
 					</li>
-					<li><a href="#"><i class="fa fa-link"></i> <span>Another
-								Link</span>
+					<li><a href="#"><i class="fa fa-link"></i> <span>4G语音历史查询</span>
 					</a>
 					</li>
-					<li class="treeview"><a href="#"><i class="fa fa-link"></i>
-							<span>Multilevel</span> <span class="pull-right-container">
-								<i class="fa fa-angle-left pull-right"></i> </span> </a>
-						<ul class="treeview-menu">
-							<li><a href="#">Link in level 2</a>
-							</li>
-							<li><a href="#">Link in level 2</a>
-							</li>
-						</ul></li>
 				</ul>
 				<!-- /.sidebar-menu -->
 			</section>
@@ -140,7 +130,7 @@ desired effect
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<h1>
-					Page Header <small>Optional description</small>
+                    4G语音历史查询 <small>输入日期时间查询(可在查找框中过滤)</small>
 				</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Level</a>
@@ -417,7 +407,13 @@ desired effect
                  "info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
                  "infoEmpty": "无记录",
                  "infoFiltered": "(从 _MAX_ 条记录过滤)",
-                 "search":"查找"
+                 "search":"查找",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "前一页",
+                    "sNext": "后一页",
+                    "sLast": "尾页"
+                }
              }});
 		});
 		function playVoice(comp, file) {
@@ -444,11 +440,11 @@ desired effect
 			var tb  = $("#voiceData").DataTable();
 
 			dateStart = $('#dateBg').datepicker('getDate');
-			dateStart = dateStart.getFullYear() + p(dateStart.getMonth() + 1)
-					+ p(dateStart.getDate());
+			dateStart = dateStart.getFullYear()*10000 + p(dateStart.getMonth() + 1)*100
+					+ p(dateStart.getDate())*1;
 			dateEnd = $('#dateEd').datepicker('getDate');
-			dateEnd = dateEnd.getFullYear() + p(dateEnd.getMonth() + 1)
-					+ p(dateEnd.getDate());
+			dateEnd = dateEnd.getFullYear()*10000 + p(dateEnd.getMonth() + 1)*100
+					+ p(dateEnd.getDate())*1;
 			timeBg = $('#timeBg').data("timepicker").getTime();
 			timeBg = timeBg.substr(0, 2) + timeBg.substr(3, 2) + '01';
 			timeEd = $('#timeEd').data("timepicker").getTime();
