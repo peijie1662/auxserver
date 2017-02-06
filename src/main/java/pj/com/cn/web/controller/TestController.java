@@ -24,7 +24,6 @@ public class TestController {
 		map.put("DEVICEID", "KZ01");
 		map.put("CHGTIME", new Date());
 		
-		
 		DeviceStatus truck = new DeviceStatus();
 		MappingUtil.mapToBean(map, truck);
 		

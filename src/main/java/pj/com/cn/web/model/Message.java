@@ -32,6 +32,8 @@ public class Message {
 	
 	private String fileName;
 	
+	private String fileSeq;
+	
 	private String receiptTime;
 	
 	private String content;
@@ -180,6 +182,14 @@ public class Message {
 
 	public void setGroupMsgId(String groupMsgId) {
 		this.groupMsgId = groupMsgId;
+	}
+
+	public String getFileSeq() {
+		return fileSeq;
+	}
+
+	public void setFileSeq(String fileSeq) {
+		this.fileSeq = fileSeq;
 	}
 
 }
