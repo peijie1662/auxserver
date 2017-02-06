@@ -39,7 +39,7 @@ public class FlagController {
 	@RequestMapping(value = "/headvoice/{workId}/{flag}", produces = "application/json;charset=UTF-8")
 	public RequestResult setHeadVoice(@PathVariable String workId,
 			@PathVariable String flag, HttpServletRequest request) {
-		RequestResult result = flagService.setAutoVoice(workId, flag);
+		RequestResult result = flagService.setHeadVoice(workId, flag);
 		logger.info(" IP:" + request.getRemoteAddr() + " WorkId = " + workId
 				+ " SetHeadVoice = " + flag);
 		return result;
