@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,27 +21,31 @@ public class UploadController {
 	private static Logger logger = LoggerFactory
 			.getLogger(UploadController.class);
 
+	@Value("${upload_amr_path}")
+	private String upload_amr_path;
+
+	@Value("${convert_mp3_path}")
+	private String convert_mp3_path;
+
 	@RequestMapping(value = "/saveuploads", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
 	public @ResponseBody
 	RequestResult upload(
 			@RequestParam(value = "file", required = false) MultipartFile file,
 			HttpServletRequest request) {
-
-		String path = request.getSession().getServletContext()
-				.getRealPath("lupload");
 		String fileName = file.getOriginalFilename();
-		File targetFile = new File(path, fileName);
+		File targetFile = new File(upload_amr_path, fileName);
 		if (!targetFile.exists()) {
 			targetFile.mkdirs();
 		}
-        //上传
+		// 上传
 		try {
 			file.transferTo(targetFile);
 			logger.info(" IP:" + request.getRemoteAddr()
 					+ " Upload_New_File_Success: FileName = " + fileName);
-			//转换格式为mp3
+			// 转换格式为mp3
 			fileName = ConvertUtils.convertFilename(fileName);
-			ConvertUtils.changeToMp3(targetFile.getAbsolutePath(), "d:\\convert-mp3\\"+fileName+".mp3");
+			ConvertUtils.changeToMp3(targetFile.getAbsolutePath(),
+					convert_mp3_path + fileName + ".mp3");
 			return new RequestResult(true);
 		} catch (Exception e) {
 			logger.info(" IP:" + request.getRemoteAddr()

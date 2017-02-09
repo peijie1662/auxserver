@@ -1,18 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
 http://www.springframework.org/schema/mvc 
 http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd 
 http://www.springframework.org/schema/context 
 http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+http://www.springframework.org/schema/task  
+http://www.springframework.org/schema/task/spring-task-3.1.xsd
 http://www.springframework.org/schema/aop 
 http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 	<context:property-placeholder location="classpath:config.properties" />
-	<context:component-scan base-package="pj.com.cn.web" />
+	
+	<task:annotation-driven /> 
+	
+	<context:component-scan base-package="pj.com.cn.web"/>
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -40,15 +48,14 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 		<property name="templateEngine" ref="templateEngine" />
 		<property name="viewNames" value="templates/*" />
 		<property name="order" value="0" />
-		<property name="characterEncoding" value="UTF-8"/>
+		<property name="characterEncoding" value="UTF-8" />
 	</bean>
 
 	<mvc:annotation-driven />
-	
-	<mvc:resources location="file:d:/convert-mp3/" mapping="/mp3/**" />
 
-    <mvc:resources location="/WEB-INF/html/" mapping="/html/**" />
-	<mvc:resources location="/lupload/" mapping="/lupload/**" />
+	<mvc:resources location="file:d:/auxserver_file/compose-mp3/" mapping="/mp3/**" />
+	<mvc:resources location="/WEB-INF/html/" mapping="/html/**" />
+	<mvc:resources location="file:d:/auxserver_file/upload-amr/" mapping="/lupload/**" /> 
 	<mvc:resources location="/resources/" mapping="/resources/**" />
 
 	<bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
