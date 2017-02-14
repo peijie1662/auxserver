@@ -401,6 +401,7 @@ desired effect
 				defaultTime : '23:59'
 			});
 			$("#voiceData").DataTable({
+
 			"language": {
                  "lengthMenu": "每页 _MENU_ 条记录",
                  "zeroRecords": "没有找到记录",
@@ -417,6 +418,7 @@ desired effect
              }});
 		});
 		function playVoice(comp, file) {
+			file  = file.substring(1,file.length()-2);
 			if (dewp != null) {
 				$(comp).addClass('sr-only');
 				$(comp).next().removeClass('sr-only');
@@ -460,7 +462,7 @@ desired effect
 				dataType : 'json',
 				success : function(json) {
 					//$("#tbVoice").empty();
-                    tb.rows().remove();
+                    tb.rows().Clear().draw(false);
 					$.each(json, function(n, value) {
 
 						tb.row.add([ i,
@@ -471,7 +473,7 @@ desired effect
 								value.crtTime,
 								value.received,
 								'<button type=\"button\" class=\"btn btn-block btn-success btn-xs\" style=\"margin-top: 5px;\" '
-                            + 'onclick=\"playVoice(this,\'/auxserver/mp3/' + value.fileName + '.mp3\');\"> <i class=\"fa fa-play\"> 播放</i></button> '
+                            + 'onclick=\"playVoice(this,\'/auxserver/mp3/' + value.fileName.substr(1,value.fileName.length-2) + '.mp3\');\"> <i class=\"fa fa-play\"> 播放</i></button> '
                             + '<button type=\"button\" class=\"btn btn-block btn-success btn-xs sr-only\" onclick=\"StopVoice(this);\">'
                             + '<i class=\"fa fa-stop\"> 停止</i></button> ' 
                             ]).draw(
