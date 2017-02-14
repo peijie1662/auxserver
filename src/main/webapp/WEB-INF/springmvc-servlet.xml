@@ -53,9 +53,9 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
 	<mvc:annotation-driven />
 
-	<mvc:resources location="file:d:/auxserver_file/compose-mp3/" mapping="/mp3/**" />
+	<mvc:resources location="file:d:/auxserver_file/mp3/" mapping="/mp3/**" />
 	<mvc:resources location="/WEB-INF/html/" mapping="/html/**" />
-	<mvc:resources location="file:d:/auxserver_file/upload-amr/" mapping="/lupload/**" /> 
+	<mvc:resources location="file:d:/auxserver_file/amr/" mapping="/lupload/**" /> 
 	<mvc:resources location="/resources/" mapping="/resources/**" />
 
 	<bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource"

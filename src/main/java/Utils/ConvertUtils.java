@@ -5,8 +5,8 @@ import it.sauronsoftware.jave.Encoder;
 import it.sauronsoftware.jave.EncodingAttributes;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.RandomAccessFile;
 
 public class ConvertUtils {
 
@@ -25,7 +25,7 @@ public class ConvertUtils {
 		try {
 			encoder.encode(source, target, attrs);
 		} catch (Exception e) {
-			
+
 		}
 	}
 
@@ -41,28 +41,81 @@ public class ConvertUtils {
 		}
 		return filePrefix + fileSuffix;
 	}
-	
+
 	/**
 	 * 将多个文件合成一个文件
 	 */
-	public static boolean combine(String outFile, Object[] inFiles)
+	public static boolean combineMp3(String outFile, Object[] inFiles)
 			throws Exception {
 		File[] files = new File[inFiles.length];
 		for (int i = 0; i < files.length; i++) {
 			files[i] = new File((String) inFiles[i]);
 		}
-		FileInputStream fis = null;
-		FileOutputStream fos = new FileOutputStream(outFile, true); 
+		FileOutputStream fos = new FileOutputStream(outFile, true);
 		for (int i = 0; i < files.length; i++) {
-			fis = new FileInputStream(files[i]);
-			int len = 0;
-			for (byte[] buf = new byte[1024 * 1024]; (len = fis.read(buf)) != -1;) {
-				fos.write(buf, 0, len);
+			byte[] buf = new byte[1024 * 1024];
+			int length = (int) files[i].length();
+			int tagLen = getMp3TagLen(files[i]);
+			int realLen = 0;
+			RandomAccessFile rf = new RandomAccessFile(files[i], "r");
+			if (i == 0) {
+				realLen = rf.read(buf, 0, length - 16*56);
+			} else {
+				rf.seek(tagLen);
+				realLen = rf.read(buf, 0, length - tagLen - 16*56);
 			}
-			fis.close();
+			rf.close();
+			fos.write(buf,0,realLen);
 		}
 		fos.close();
 		return true;
+	}
+	
+	/**
+	 * 将多个文件合成一个文件
+	 */
+	public static boolean combineAmr(String outFile, Object[] inFiles)
+			throws Exception {
+		FileOutputStream fos = new FileOutputStream(outFile, true);
+		for (int i = 0; i < inFiles.length; i++) {
+			byte[] buf = new byte[1024 * 1024];
+			File file = new File((String) inFiles[i]);
+			int length = (int) file.length();
+			int tagLen = 6;
+			int realLen = 0;
+			RandomAccessFile rf = new RandomAccessFile(file, "r");
+			if (i == 0) {
+				realLen = rf.read(buf, 0, length);
+			} else {
+				rf.seek(tagLen);
+				realLen = rf.read(buf, 0, length - tagLen);
+			}
+			rf.close();
+			fos.write(buf,0,realLen);
+		}
+		fos.close();
+		return true;
+	}
+
+	public static int toSize(byte[] bytes) {
+		int result = bytes[0] << 21 | bytes[1] << 14 | bytes[2] << 7 | bytes[3];
+		return result;
+	}
+
+	/**
+	 * mp3头长度
+	 */
+	public static int getMp3TagLen(File file) {
+		try {
+			byte[] size = new byte[4];
+			RandomAccessFile rf = new RandomAccessFile(file, "r");
+			rf.seek(6);
+			rf.read(size);
+			rf.close();
+			return toSize(size);
+		} catch (Exception e) {
+			return 0;
+		}
 	}
 
 }

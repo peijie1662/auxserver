@@ -1,6 +1,7 @@
 package pj.com.cn.web.controller;
 
 import java.io.File;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import Utils.ConvertUtils;
 import pj.com.cn.web.model.RequestResult;
 
 @Controller
@@ -21,11 +21,8 @@ public class UploadController {
 	private static Logger logger = LoggerFactory
 			.getLogger(UploadController.class);
 
-	@Value("${upload_amr_path}")
-	private String upload_amr_path;
-
-	@Value("${convert_mp3_path}")
-	private String convert_mp3_path;
+	@Value("${amr_path}")
+	private String amr_path;
 
 	@RequestMapping(value = "/saveuploads", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
 	public @ResponseBody
@@ -33,7 +30,7 @@ public class UploadController {
 			@RequestParam(value = "file", required = false) MultipartFile file,
 			HttpServletRequest request) {
 		String fileName = file.getOriginalFilename();
-		File targetFile = new File(upload_amr_path, fileName);
+		File targetFile = new File(amr_path, fileName);
 		if (!targetFile.exists()) {
 			targetFile.mkdirs();
 		}
@@ -42,10 +39,6 @@ public class UploadController {
 			file.transferTo(targetFile);
 			logger.info(" IP:" + request.getRemoteAddr()
 					+ " Upload_New_File_Success: FileName = " + fileName);
-			// 转换格式为mp3
-			fileName = ConvertUtils.convertFilename(fileName);
-			ConvertUtils.changeToMp3(targetFile.getAbsolutePath(),
-					convert_mp3_path + fileName + ".mp3");
 			return new RequestResult(true);
 		} catch (Exception e) {
 			logger.info(" IP:" + request.getRemoteAddr()

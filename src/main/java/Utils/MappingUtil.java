@@ -22,6 +22,7 @@ public class MappingUtil {
 			Object fieldValue = map.get(fieldName);
 			if (fieldName.endsWith("TIME") || fieldName.endsWith("DATE")) {
 				fieldValue = df.format(fieldValue);
+				System.out.println("fieldValue:"+fieldValue);
 			}
 			for (Method method : methods) {
 				if (method.getName().toUpperCase().equals("SET" + fieldName)) {
