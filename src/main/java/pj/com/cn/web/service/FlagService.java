@@ -10,4 +10,6 @@ public interface FlagService {
 	
 	RequestResult setTextVoice(String workId,String flag);
 
+	RequestResult setAutoSwichCallId(String workId, String flag);
+
 }

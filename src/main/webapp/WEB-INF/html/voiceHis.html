@@ -417,16 +417,16 @@ desired effect
                 }
              }});
 		});
+		
 		function playVoice(comp, file) {
-			file  = file.substring(1,file.length()-2);
 			if (dewp != null) {
 				$(comp).addClass('sr-only');
 				$(comp).next().removeClass('sr-only');
 				dewp.dewset(file);
 				dewp.dewplay();
 			}
-
 		}
+		
 		function StopVoice(comp) {
 			if (dewp != null) {
 				$(comp).addClass('sr-only');
@@ -434,9 +434,11 @@ desired effect
 				dewp.dewstop();
 			}
 		}
+		
 		function p(s) {
 			return s < 10 ? '0' + s : s;
 		}
+		
 		function getData() {
 			var dateStart, dateEnd, timeBg, timeEd, tb, i;
 			var tb  = $("#voiceData").DataTable();
@@ -462,7 +464,7 @@ desired effect
 				dataType : 'json',
 				success : function(json) {
 					//$("#tbVoice").empty();
-                    tb.rows().Clear().draw(false);
+                    tb.rows().clear().draw(false);
 					$.each(json, function(n, value) {
 
 						tb.row.add([ i,

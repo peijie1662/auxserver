@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import Utils.CommonUtils;
+
 import pj.com.cn.web.model.RequestResult;
 
 @Controller
@@ -29,13 +31,21 @@ public class UploadController {
 	RequestResult upload(
 			@RequestParam(value = "file", required = false) MultipartFile file,
 			HttpServletRequest request) {
-		String fileName = file.getOriginalFilename();
-		File targetFile = new File(amr_path, fileName);
-		if (!targetFile.exists()) {
-			targetFile.mkdirs();
-		}
-		// 上传
+		String fileName = "";
 		try {
+			File uploadPath = new File(amr_path);
+			if (!uploadPath.exists() || uploadPath.isFile()) {
+				CommonUtils.resetDir(uploadPath);
+			}
+			// 上传文件名不能为空
+			fileName = file.getOriginalFilename();
+			if (fileName == null || fileName.isEmpty()) {
+				logger.info(" IP:" + request.getRemoteAddr()
+						+ " Upload_New_File_Failed: FileName is null or empty");
+				return new RequestResult(false, "FileName is null or empty");
+			}
+			// 保存文件
+			File targetFile = new File(amr_path, fileName);
 			file.transferTo(targetFile);
 			logger.info(" IP:" + request.getRemoteAddr()
 					+ " Upload_New_File_Success: FileName = " + fileName);
@@ -43,7 +53,7 @@ public class UploadController {
 		} catch (Exception e) {
 			logger.info(" IP:" + request.getRemoteAddr()
 					+ " Upload_New_File_Failed: FileName = " + fileName);
-			e.printStackTrace();
+			logger.info(e.getMessage());
 			return new RequestResult(false, e.getMessage());
 		}
 	}

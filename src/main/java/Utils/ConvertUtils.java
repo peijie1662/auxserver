@@ -43,7 +43,7 @@ public class ConvertUtils {
 	}
 
 	/**
-	 * 将多个文件合成一个文件
+	 * 将多个MP3文件合成一个文件
 	 */
 	public static boolean combineMp3(String outFile, Object[] inFiles)
 			throws Exception {
@@ -72,7 +72,7 @@ public class ConvertUtils {
 	}
 	
 	/**
-	 * 将多个文件合成一个文件
+	 * 将多个AMR文件合成一个文件
 	 */
 	public static boolean combineAmr(String outFile, Object[] inFiles)
 			throws Exception {

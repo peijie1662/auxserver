@@ -14,15 +14,11 @@ public class LoginDaoImpl implements LoginDao {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public List<Map<String, Object>> loginByUserId(String userId,
-			String password) {
+	public List<Map<String, Object>> loginByUserId(String userId, String password) {
 		List<Map<String, Object>> db_list = null;
 		try {
-			String sql = "select a.*,b.setstr from sycdurp a,ip_userset b where a.shorur='"
-					+ userId
-					+ "' and passur='"
-					+ password
-					+ "' and a.wkidur = b.workid(+)";
+			String sql = "select a.*,b.setstr from sycdurp a,ip_userset b where upper(a.shorur)=upper('" + userId
+					+ "') and upper(passur)=upper('" + password + "') and a.wkidur = b.workid(+)";
 			db_list = jdbcTemplate.queryForList(sql);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -31,15 +27,11 @@ public class LoginDaoImpl implements LoginDao {
 	}
 
 	@Override
-	public List<Map<String, Object>> loginByWorkId(String workId,
-			String password) {
+	public List<Map<String, Object>> loginByWorkId(String workId, String password) {
 		List<Map<String, Object>> db_list = null;
 		try {
-			String sql = "select a.*,b.setstr from sycdurp a,ip_userset b where a.wkidur='"
-					+ workId
-					+ "' and passur='"
-					+ password
-					+ "' and a.wkidur = b.workid(+)";
+			String sql = "select a.*,b.setstr from sycdurp a,ip_userset b where upper(a.wkidur)=upper('" + workId
+					+ "') and upper(passur)=upper('" + password + "') and a.wkidur = b.workid(+)";
 			db_list = jdbcTemplate.queryForList(sql);
 		} catch (Exception e) {
 			e.printStackTrace();

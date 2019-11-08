@@ -2,7 +2,6 @@ package pj.com.cn.web.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +65,6 @@ public class QueryController {
 	@ResponseBody
 	public List<Voice> qryVoiceJson(@PathVariable String bgDate,
 			@PathVariable String edDate) {
-		System.out.println(new Date());
 		List<Voice> list = new ArrayList<Voice>();
 		try {
 			RequestResult result = queryService.qryVoiceByDate(
@@ -75,7 +73,6 @@ public class QueryController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(new Date());
 		return list;
 	}
 

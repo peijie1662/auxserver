@@ -20,6 +20,18 @@ public class FlagController {
 
 	@Autowired
 	private FlagService flagService;
+	
+	/**
+	 * 自动更改callId
+	 */
+	@RequestMapping(value = "/autocallid/{workId}/{flag}", produces = "application/json;charset=UTF-8")
+	public RequestResult setAutoSwichCallId(@PathVariable String workId,
+			@PathVariable String flag, HttpServletRequest request) {
+		RequestResult result = flagService.setAutoSwichCallId(workId, flag);
+		logger.info(" IP:" + request.getRemoteAddr() + " WorkId = " + workId
+				+ " setAutoSwichCallId = " + flag);
+		return result;
+	}
 
 	/**
 	 * 自动播放

@@ -13,7 +13,7 @@
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<fileNamePattern>d:/logs/auxserver/logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
-			<maxHistory>30</maxHistory>
+			<maxHistory>7</maxHistory>
 		</rollingPolicy>
 		<encoder>
 			<pattern>%d{HH:mm:ss} %msg%n

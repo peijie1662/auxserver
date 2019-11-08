@@ -45,5 +45,16 @@ public class FlagServiceImpl implements FlagService{
 		}
 		return result;
 	}
+	
+	@Override
+	public RequestResult setAutoSwichCallId(String workId, String flag) {
+		RequestResult result = new RequestResult();
+		if (flagDao.setAutoSwichCallId(workId, flag)>0){
+			result.setFlag(true);
+		}else{
+			result.setFlag(false);
+		}
+		return result;
+	}
 
 }

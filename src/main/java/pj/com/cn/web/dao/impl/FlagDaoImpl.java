@@ -34,5 +34,13 @@ public class FlagDaoImpl implements FlagDao {
 				+ "'";
 		return jdbcTemplate.update(sql);
 	}
+	
+	@Override
+	public int setAutoSwichCallId(String workId, String flag) {
+		String sql = "update ip_userset set setstr=substr(setstr,1,4)||'"
+				+ flag + "'||substr(setstr,6)" + " where workid='" + workId
+				+ "'";
+		return jdbcTemplate.update(sql);
+	}
 
 }

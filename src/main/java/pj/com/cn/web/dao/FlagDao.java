@@ -8,4 +8,6 @@ public interface FlagDao {
 	
 	int setTextVoice(String workId,String flag);
 
+	int setAutoSwichCallId(String workId, String flag);
+
 }
