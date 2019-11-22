@@ -24,28 +24,27 @@ import pj.com.cn.web.register.Register;
 @Component
 public class HousekeeperScheduled {
 
-	private static Logger logger = LoggerFactory
-			.getLogger(HousekeeperScheduled.class);
+	private static Logger logger = LoggerFactory.getLogger(HousekeeperScheduled.class);
 
 	@Value("${amr_path}")
 	private String amr_path;
 
 	@Value("${mp3_path}")
 	private String mp3_path;
-	
+
 	@Autowired
 	private ClearDao clearDao;
-	
+
 	@Autowired
 	private Register register;
-	
+
 	/**
 	 * 注册
 	 */
 	@Scheduled(cron = "*/15 * * * * ?")
-	public void register(){
-		register.reg();	
-	}	
+	public void register() {
+		register.reg();
+	}
 
 	/**
 	 * 每30秒遍历文件
@@ -85,14 +84,13 @@ public class HousekeeperScheduled {
 			// 该序列所有文件创建时间都已超过1小时,即可转换
 			for (String fn : af.getFilePaths()) {
 				File f = new File(fn);
-				if ((curDate.getTime() - f.lastModified()) / 1000 <= 60*60) {
+				if ((curDate.getTime() - f.lastModified()) / 1000 <= 60 * 60) {
 					isTimeout = false;
 				}
 			}
 			if (isTimeout) {
 				try {
-					if (ConvertUtils.combineAmr(mp3_path + af.getPrefix()
-							+ ".amr", af.getFilePaths().toArray())) {
+					if (ConvertUtils.combineAmr(mp3_path + af.getPrefix() + ".amr", af.getFilePaths().toArray())) {
 						for (String fn : af.getFilePaths()) {
 							File f = new File(fn);
 							if (f.exists() && f.isFile()) {
@@ -105,32 +103,30 @@ public class HousekeeperScheduled {
 					logger.info(e.getMessage());
 				}
 			}
-			//TODO 文件太多了，不保存了。 
 			// 将此文件转换为mp3
-			// ConvertUtils.changeToMp3(mp3_path + af.getPrefix() + ".amr",
-			//		mp3_path + af.getPrefix() + ".mp3");
+			ConvertUtils.changeToMp3(mp3_path + af.getPrefix() + ".amr", mp3_path + af.getPrefix() + ".mp3");
 		}
 	}
-	
+
 	/**
 	 * 每天中午12时清理超过一周数据
 	 */
 	@Scheduled(cron = "0 0 12 * * ?")
-	public void weeklyClear(){
+	public void weeklyClear() {
 		Date curDate = new Date();
-		//1.删除超过一周语音文件
+		// 1.删除超过一周语音文件
 		File mp3Path = new File(mp3_path);
 		if (!mp3Path.exists() || mp3Path.isFile()) {
 			CommonUtils.resetDir(mp3Path);
-		}		
+		}
 		File[] fs = mp3Path.listFiles();
 		for (File f : fs) {
-			if ((curDate.getTime() - f.lastModified()) / 1000 >= 3*24*60*60) {
+			if ((curDate.getTime() - f.lastModified()) / 1000 >= 3 * 24 * 60 * 60) {
 				f.delete();
 			}
-		}		
-		//2.删除DB中大于一周数据
+		}
+		// 2.删除DB中大于一周数据
 		clearDao.clr();
 	}
-	
+
 }
