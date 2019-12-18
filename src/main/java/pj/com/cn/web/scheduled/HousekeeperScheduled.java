@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 import Utils.CommonUtils;
 import Utils.ConvertUtils;
 import pj.com.cn.web.dao.ClearDao;
-import pj.com.cn.web.register.Register;
 
 /**
  * 定时任务
@@ -35,19 +34,8 @@ public class HousekeeperScheduled {
 	@Autowired
 	private ClearDao clearDao;
 
-	@Autowired
-	private Register register;
-
 	/**
-	 * 注册
-	 */
-	@Scheduled(cron = "*/15 * * * * ?")
-	public void register() {
-		register.reg();
-	}
-
-	/**
-	 * 每30秒遍历文件
+	 * 每30秒遍历文件 
 	 */
 	@Scheduled(cron = "*/30 * * * * ?")
 	public void pollDir() {
