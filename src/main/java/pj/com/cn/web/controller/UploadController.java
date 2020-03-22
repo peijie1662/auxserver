@@ -20,6 +20,7 @@ import pj.com.cn.web.model.RequestResult;
 
 @Controller
 public class UploadController {
+	
 	private static Logger logger = LoggerFactory
 			.getLogger(UploadController.class);
 

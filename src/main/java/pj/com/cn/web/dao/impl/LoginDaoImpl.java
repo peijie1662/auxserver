@@ -10,6 +10,7 @@ import pj.com.cn.web.dao.LoginDao;
 
 @Repository
 public class LoginDaoImpl implements LoginDao {
+	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 

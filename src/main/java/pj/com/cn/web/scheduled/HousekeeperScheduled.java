@@ -35,9 +35,9 @@ public class HousekeeperScheduled {
 	private ClearDao clearDao;
 
 	/**
-	 * 每30秒遍历文件 
+	 * 每1分钟遍历文件 
 	 */
-	@Scheduled(cron = "*/30 * * * * ?")
+	@Scheduled(cron = "*/60 * * * * ?")
 	public void pollDir() {
 		// 0.检查文件夹
 		File amrPath = new File(amr_path);
@@ -69,10 +69,10 @@ public class HousekeeperScheduled {
 			boolean isTimeout = true;
 			Collections.sort(af.getFilePaths());
 			Date curDate = new Date();
-			// 该序列所有文件创建时间都已超过1小时,即可转换
+			// 该序列所有文件创建时间都已超过30分钟,即可转换
 			for (String fn : af.getFilePaths()) {
 				File f = new File(fn);
-				if ((curDate.getTime() - f.lastModified()) / 1000 <= 60 * 60) {
+				if ((curDate.getTime() - f.lastModified()) / 1000 <= 30 * 60) {
 					isTimeout = false;
 				}
 			}
@@ -88,7 +88,6 @@ public class HousekeeperScheduled {
 					}
 				} catch (Exception e) {
 					logger.info("composing file:" + af.getPrefix() + " error");
-					logger.info(e.getMessage());
 				}
 			}
 			// 将此文件转换为mp3
@@ -97,19 +96,19 @@ public class HousekeeperScheduled {
 	}
 
 	/**
-	 * 每天中午12时清理超过一周数据
+	 * 每天中午12时清理超过1天数据
 	 */
 	@Scheduled(cron = "0 0 12 * * ?")
 	public void weeklyClear() {
 		Date curDate = new Date();
-		// 1.删除超过一周语音文件
+		// 1.删除超过1天语音文件
 		File mp3Path = new File(mp3_path);
 		if (!mp3Path.exists() || mp3Path.isFile()) {
 			CommonUtils.resetDir(mp3Path);
 		}
 		File[] fs = mp3Path.listFiles();
 		for (File f : fs) {
-			if ((curDate.getTime() - f.lastModified()) / 1000 >= 3 * 24 * 60 * 60) {
+			if ((curDate.getTime() - f.lastModified()) / 1000 >= 1 * 24 * 60 * 60) {
 				f.delete();
 			}
 		}
